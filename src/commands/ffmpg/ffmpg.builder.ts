@@ -1,4 +1,3 @@
-import { error } from "console";
 
 export class FfmpgBuilder{
     private inputPath:string;
@@ -13,11 +12,11 @@ export class FfmpgBuilder{
         return this;
     }
 
-    setVideoSize(width:number,height:number){
+    setVideoSize(width:number,height:number):this{
         this.options.set('-s',`${width}x${height}`);
         return this;
     }
-    output(outputPath:string){
+    output(outputPath:string):string[]{
         if(!this.inputPath){
             throw new Error(`Not input path`);
         }
@@ -26,5 +25,8 @@ export class FfmpgBuilder{
             args.push(key);
             args.push(value);
         })
+        return args;
     }
 }
+
+new FfmpgBuilder().input('').setVideoSize(1920,1080).output('//')
